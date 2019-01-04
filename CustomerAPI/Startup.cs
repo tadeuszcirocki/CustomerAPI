@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerAPI.Models;
+using CustomerAPI.Models.DataManager;
+using CustomerAPI.Models.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +30,7 @@ namespace CustomerAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CustomerContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:CustomerDB"]));
+            services.AddScoped<IDataRepository<Customer>, CustomerManager>(); //DI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
